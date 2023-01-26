@@ -1,0 +1,23 @@
+{
+    "name": "flash-gpt",
+    "version": "1.0.0",
+    "scripts": {
+        "build": "webpack --mode production"
+    },
+    "license": "MIT",
+    "author": {
+        "name": "Devin Picciolini",
+        "email": "dpicciolini@gmail.com"
+    },
+    "devDependencies": {
+        "css-loader": "^3.6.0",
+        "style-loader": "^1.2.1",
+        "webpack": "^5.75.0",
+        "webpack-cli": "3.3.11",
+        "webpack-dev-server": "^3.11.0"
+    },
+    "dependencies": {
+        "copy-webpack-plugin": "^6.3.1",
+        "html-webpack-plugin": "5.1.0 "
+    }
+}

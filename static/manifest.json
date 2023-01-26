@@ -1,0 +1,33 @@
+{
+    "manifest_version": 2,
+    "name": "FlashGPT",
+    "description": "Improve Article Reading Comprehension",
+    "version": "1.0",
+    "browser_action": {
+        "default_popup": "index.html"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                "content.bundle.js"
+            ],
+            "run_at": "document_end"
+        }
+    ],
+    "background": {
+        "scripts": [
+            "background.bundle.js"
+        ]
+    },
+    "permissions": [
+        "activeTab",
+        "tabs",
+        "unlimitedStorage",
+        "storage",
+        "<all_urls>",
+        "webNavigation"
+    ]
+}
