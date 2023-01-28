@@ -31,7 +31,7 @@ module.exports = {
     }),
     new HtmlWebPackPlugin({
       template: "./src/popup.html",
-      chunks: ["popup"],
+      chunks: ["popup", "nonce"],
     }),
   ],
 };

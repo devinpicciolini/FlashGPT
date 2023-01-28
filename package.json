@@ -2,6 +2,7 @@
     "name": "flash-gpt",
     "version": "1.0.0",
     "scripts": {
+        "start": "webpack --mode production --watch",
         "build": "webpack --mode production"
     },
     "license": "MIT",
@@ -13,8 +14,8 @@
         "css-loader": "^3.6.0",
         "style-loader": "^1.2.1",
         "webpack": "^5.75.0",
-        "webpack-cli": "3.3.11",
-        "webpack-dev-server": "^3.11.0"
+        "webpack-cli": "^5.0.1",
+        "webpack-dev-server": "^4.11.1"
     },
     "dependencies": {
         "copy-webpack-plugin": "^6.3.1",
