@@ -1,5 +1,5 @@
 // Import the OpenAI API key
-const API_KEY = "YOUR API KEY HERE";
+const API_KEY = process.env.OPEN_AI_API_KEY;
 
 let flashcards = [];
 

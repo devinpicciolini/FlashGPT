@@ -1,6 +1,7 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 const path = require('path');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   output: {
@@ -33,5 +34,6 @@ module.exports = {
       template: "./src/popup.html",
       chunks: ["popup", "nonce"],
     }),
+    new Dotenv()
   ],
 };
