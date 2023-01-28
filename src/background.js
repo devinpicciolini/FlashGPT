@@ -12,10 +12,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       type: 'loading',
       data: true
     });
-    chrome.runtime.sendMessage({
-      type: 'loading',
-      data: false
-    });
     if (reqText) {
       fetch('https://api.openai.com/v1/engines/text-davinci-003/completions', {
         method: 'POST',
@@ -36,11 +32,19 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
             question: reqText,
             flashcards: data.choices[0].text
           });
+          chrome.runtime.sendMessage({
+            type: 'loading',
+            data: false
+          });
         })
         .catch(error => {
           chrome.runtime.sendMessage({
             type: 'gpt-error',
             data: error
+          });
+          chrome.runtime.sendMessage({
+            type: 'loading',
+            data: false
           });
         });
 
