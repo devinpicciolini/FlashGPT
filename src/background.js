@@ -8,9 +8,13 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.type === "getFlashcards") {
     // Get the selected text from the content script
     const reqText = request.text;
-    chrome.runtime.sendMessage({ 
+    chrome.runtime.sendMessage({
       type: 'loading',
       data: true
+    });
+    chrome.runtime.sendMessage({
+      type: 'loading',
+      data: false
     });
     if (reqText) {
       fetch('https://api.openai.com/v1/engines/text-davinci-003/completions', {
@@ -25,25 +29,21 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
           temperature: 0.7,
         })
       })
-      .then(response => response.json())
-      .then(data => {
-        chrome.runtime.sendMessage({ 
-          type: 'flashcards',
-          question: reqText,
-          flashcards: data.choices[0].text
+        .then(response => response.json())
+        .then(data => {
+          chrome.runtime.sendMessage({
+            type: 'flashcards',
+            question: reqText,
+            flashcards: data.choices[0].text
+          });
+        })
+        .catch(error => {
+          chrome.runtime.sendMessage({
+            type: 'gpt-error',
+            data: error
+          });
         });
-        chrome.runtime.sendMessage({ 
-          type: 'loading',
-          data: false
-        });
-      })
-      .catch(error => {
-        chrome.runtime.sendMessage({ 
-          type: 'gpt-error',
-          data: error
-        });
-      });
-  
+
       // Send the flashcards to the content script
       chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
         chrome.tabs.sendMessage(tabs[0].id, { type: "flashcards", flashcards });
@@ -54,11 +54,11 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 });
 
 function generateNonce() {
-    let text = "";
-    const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    for (let i = 0; i < 32; i++) {
-        text += possible.charAt(Math.floor(Math.random() * possible.length));
-    }
-    return text;
+  let text = "";
+  const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  for (let i = 0; i < 32; i++) {
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+  }
+  return text;
 }
 
